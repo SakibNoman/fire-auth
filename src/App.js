@@ -14,7 +14,9 @@ function App() {
     name: '',
     email: '',
     photo: '',
-    password: ''
+    password: '',
+    error: '',
+    success: false
   })
 
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -53,12 +55,15 @@ function App() {
           // Signed in 
           var user = userCredential.user;
           // ...
+          const newUserInfo = { ...user };
+          newUserInfo.error = '';
+          newUserInfo.success = true;
+          setUser(newUserInfo);
         })
         .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-
+          const newUserInfo = { ...user };
+          newUserInfo.error = error.message;
+          setUser(newUserInfo);
         });
     }
     e.preventDefault();
@@ -79,6 +84,10 @@ function App() {
         <br />
         <input type="submit" value="SUBMIT" />
       </form>
+      <p style={{ color: 'red' }} >{user.error}</p>
+      {
+        user.success && <p style={{ color: 'green' }} >Account created successfully</p>
+      }
     </div>
   );
 }
