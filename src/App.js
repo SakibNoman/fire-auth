@@ -22,6 +22,8 @@ function App() {
 
   const provider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
+  const ghProvider = new firebase.auth.GithubAuthProvider();
+  const TwitterProvider = new firebase.auth.TwitterAuthProvider();
 
   const handleSignIn = () => {
     firebase.auth().signInWithPopup(provider)
@@ -33,27 +35,36 @@ function App() {
   const handleFbSignIn = () => {
     firebase.auth().signInWithPopup(fbProvider)
       .then((result) => {
-        /** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
-
-        // The signed-in user info.
         var user = result.user;
-        console.log(user);
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var accessToken = credential.accessToken;
-        // ...
       })
       .catch((error) => {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
         var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        console.log(errorCode, errorMessage);
-        // ...
       });
+  }
+
+  const handleGhSignIn = () => {
+    firebase.auth().signInWithPopup(ghProvider)
+      .then((result) => {
+        var credential = result.credential;
+        var token = credential.accessToken;
+        var user = result.user;
+        console.log(user);
+      }).catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        console.log(errorMessage);
+      });
+  }
+
+  const handleTwitterSignIn = () => {
+    console.log("Under Developing");
   }
 
   const handleBlur = e => {
@@ -124,6 +135,10 @@ function App() {
   return (
     <div className="App">
       <button onClick={handleSignIn}  >Sign In Using Google</button>
+      <br />
+      <button onClick={handleTwitterSignIn}  >Sign In Using Twitter</button>
+      <br />
+      <button onClick={handleGhSignIn}  >Sign In Using Github</button>
       <br />
       <button onClick={handleFbSignIn} >Sign In Using Facebook</button>
 
