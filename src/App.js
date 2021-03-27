@@ -3,6 +3,7 @@ import "firebase/auth";
 import { useState } from "react";
 import './App.css';
 import firebaseConfig from './firebase.config';
+import Login from './Login/Login';
 
 
 if (firebase.apps.length === 0) { firebase.initializeApp(firebaseConfig); }
@@ -134,7 +135,10 @@ function App() {
   }
   return (
     <div className="App">
-      <button onClick={handleSignIn}  >Sign In Using Google</button>
+
+      <Login></Login>
+
+      {/* <button onClick={handleSignIn}  >Sign In Using Google</button>
       <br />
       <button onClick={handleTwitterSignIn}  >Sign In Using Twitter</button>
       <br />
@@ -146,7 +150,7 @@ function App() {
       {/* <h3>Name: {user.name}</h3>
       <h4>Email: {user.email}</h4>
       <h4>Password: {user.password}</h4> */}
-      <input onChange={() => setNewUser(!newUser)} type="checkbox" name="newUser" />
+      {/* <input onChange={() => setNewUser(!newUser)} type="checkbox" name="newUser" />
       <label htmlFor="newUser">New user sign up</label>
       <form onSubmit={handleSubmit}>
         {newUser && <input onBlur={handleBlur} type="text" name="name" placeholder="Your name" />} <br />
@@ -159,7 +163,7 @@ function App() {
       <p style={{ color: 'red' }} >{user.error}</p>
       {
         user.success && <p style={{ color: 'green' }} >Account {newUser ? "created" : "loggedIn"} successfully</p>
-      }
+      } */}
     </div>
   );
 }
